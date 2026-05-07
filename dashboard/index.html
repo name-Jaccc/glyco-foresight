@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CGM Metabolic Foresight Dashboard</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">CGM Analysis Frontend</p>
+          <h1 id="project-title">CGM Metabolic Foresight Dashboard</h1>
+          <p id="project-subtitle" class="hero-subtitle"></p>
+          <p id="reference-explainer" class="hero-reference"></p>
+          <div class="hero-meta">
+            <span id="last-updated"></span>
+            <span id="reference-pill">Healthy reference scoring</span>
+          </div>
+        </div>
+        <div class="hero-panel">
+          <p class="panel-label">Cohort Comparison</p>
+          <div id="comparison-grid" class="comparison-grid"></div>
+        </div>
+      </header>
+
+      <nav id="cohort-tabs" class="cohort-tabs" aria-label="Cohort tabs"></nav>
+
+      <main class="dashboard-grid">
+        <section class="card span-12">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Selected Cohort</p>
+              <h2 id="cohort-title"></h2>
+            </div>
+            <div class="cohort-badge" id="cohort-badge"></div>
+          </div>
+          <p id="cohort-summary-text" class="section-description"></p>
+          <div id="overview-metrics" class="metric-grid"></div>
+        </section>
+
+        <section class="card span-7">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Reference View</p>
+              <h2>Healthy-Referenced Score Map</h2>
+            </div>
+          </div>
+          <div id="score-map-chart" class="score-map-chart"></div>
+        </section>
+
+        <section class="card span-5">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Relative Shift</p>
+              <h2>Distance From Healthy</h2>
+            </div>
+          </div>
+          <div id="delta-chart" class="delta-chart"></div>
+        </section>
+
+        <section class="card span-7">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Framework Mapping</p>
+              <h2>Risk Domains</h2>
+            </div>
+          </div>
+          <div id="framework-grid" class="framework-grid"></div>
+        </section>
+
+        <section class="card span-5">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Signal Quality</p>
+              <h2>Validation Snapshot</h2>
+            </div>
+          </div>
+          <div id="validation-grid" class="validation-grid"></div>
+        </section>
+
+        <section class="card span-12">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Clinical Readout</p>
+              <h2>Narrative Summary</h2>
+            </div>
+          </div>
+          <ul id="narrative-list" class="narrative-list"></ul>
+        </section>
+
+        <section class="card span-8">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Subject Explorer</p>
+              <h2>High-Risk Profiles</h2>
+            </div>
+            <input id="subject-search" class="search-input" type="search" placeholder="Filter by subject id">
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th>HbA1c</th>
+                  <th>BMI</th>
+                  <th>Mean Glucose</th>
+                  <th>Next-Day Instability</th>
+                  <th>Transition Max</th>
+                  <th>Alerts</th>
+                </tr>
+              </thead>
+              <tbody id="subjects-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card span-4">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Priority Days</p>
+              <h2>Top Alerts</h2>
+            </div>
+          </div>
+          <div id="alerts-list" class="alerts-list"></div>
+        </section>
+
+        <section class="card span-12">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Subject Detail</p>
+              <h2 id="subject-detail-title">Selected Subject</h2>
+            </div>
+            <div class="cohort-badge" id="subject-detail-badge"></div>
+          </div>
+          <p id="subject-detail-summary" class="section-description"></p>
+          <div id="subject-detail-metrics" class="metric-grid"></div>
+          <div class="subject-detail-grid">
+            <div class="detail-panel">
+              <h3>Daily Risk Trajectory</h3>
+              <div id="subject-trend-chart" class="subject-trend-chart"></div>
+            </div>
+            <div class="detail-panel">
+              <h3>Meal Slot Pattern</h3>
+              <div id="subject-meal-slots" class="subject-meal-slots"></div>
+            </div>
+          </div>
+          <div class="subject-detail-grid">
+            <div class="detail-panel">
+              <h3>Recent Meals</h3>
+              <div id="subject-recent-meals" class="subject-recent-meals"></div>
+            </div>
+            <div class="detail-panel">
+              <h3>Personalized Recommendations</h3>
+              <div id="subject-recommendations" class="subject-recommendations"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card span-12">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Nutrition Guidance</p>
+              <h2>Personalized Meal Recommendations</h2>
+            </div>
+          </div>
+          <div id="recommendations-grid" class="recommendations-grid"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./data/dashboard-data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

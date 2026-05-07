@@ -1,0 +1,7 @@
+{
+  "framework": "static",
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "installCommand": null,
+  "devCommand": "python3 serve_dashboard.py --port $PORT"
+}
