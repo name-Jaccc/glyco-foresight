@@ -81,6 +81,7 @@
       const mealRisk = domainData.find(d => d.key === "meal_response")?.[item.key];
       const recoveryRisk = domainData.find(d => d.key === "recovery")?.[item.key];
       const nextDayRisk = domainData.find(d => d.key === "next_day")?.[item.key];
+      const transitionRisk = domainData.find(d => d.key === "transition")?.[item.key];
       return `
       <article class="comparison-card">
         <h3>${item.label}</h3>
@@ -89,6 +90,7 @@
           ${miniBar("Meal Response Risk", mealRisk, 100)}
           ${miniBar("Recovery Risk Score", recoveryRisk, 100)}
           ${miniBar("Next-Day Instability Risk", nextDayRisk, 100)}
+          ${miniBar("State Transition Risk", transitionRisk, 100)}
         </div>
       </article>
     `;
