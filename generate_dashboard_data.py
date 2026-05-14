@@ -125,19 +125,10 @@ def build_cohort_payload(cohort_key: str, cohort_label: str) -> dict[str, Any]:
             "mean_score": round_or_none(mean([to_float(row.get("next_day_instability_risk")) for row in valid_next_day_rows]), 2),
             "event_rate_pct": round_or_none(pct(mean([to_float(row.get("next_day_instability_event")) for row in valid_next_day_rows])), 1),
         },
-        "drift": {
-            "label": "Daily Variability Drift",
-            "mean_score": round_or_none(mean([to_float(row.get("glycaemic_drift_score")) for row in daily_rows]), 2),
-            "event_rate_pct": round_or_none(pct(mean([to_float(row.get("glycaemic_drift_event")) for row in daily_rows])), 1),
-        },
         "transition": {
             "label": "State Transition",
             "mean_score": round_or_none(mean([to_float(row.get("state_transition_risk")) for row in daily_rows]), 2),
             "alerts": sum(to_int(row.get("instability_alert")) or 0 for row in daily_rows),
-        },
-        "dii": {
-            "label": "Daily Instability Index",
-            "mean_score": round_or_none(mean([to_float(row.get("daily_instability_index")) for row in daily_rows]), 2),
         },
     }
 
@@ -154,10 +145,8 @@ def build_cohort_payload(cohort_key: str, cohort_label: str) -> dict[str, Any]:
                 "meal_response_risk_mean": round_or_none(to_float(row.get("meal_response_risk_score_mean")), 1),
                 "recovery_risk_mean": round_or_none(to_float(row.get("recovery_risk_score_mean")), 1),
                 "next_day_risk_mean": round_or_none(to_float(row.get("next_day_instability_risk_mean")), 1),
-                "drift_score_mean": round_or_none(to_float(row.get("glycaemic_drift_score_mean")), 1),
                 "transition_risk_max": round_or_none(to_float(row.get("state_transition_risk_max")), 1),
                 "unstable_day_rate_pct": round_or_none(pct(to_float(row.get("unstable_day_rate"))), 1),
-                "instability_alert_count": to_int(row.get("instability_alert_count")),
             }
             for row in subject_rows
         ],
@@ -174,7 +163,6 @@ def build_cohort_payload(cohort_key: str, cohort_label: str) -> dict[str, Any]:
                 "subject": row.get("subject"),
                 "day": row.get("day"),
                 "transition_risk": round_or_none(to_float(row.get("state_transition_risk")), 1),
-                "daily_instability_index": round_or_none(to_float(row.get("daily_instability_index")), 1),
                 "daily_glucose_cv": round_or_none(to_float(row.get("daily_glucose_cv")), 3),
                 "time_above_140_pct": round_or_none(to_float(row.get("time_above_140_pct")), 1),
                 "excursion_frequency": round_or_none(to_float(row.get("excursion_frequency")), 2),
@@ -221,7 +209,6 @@ def build_cohort_payload(cohort_key: str, cohort_label: str) -> dict[str, Any]:
                 "mean_glucose": round_or_none(to_float(row.get("daily_mean_glucose")), 1),
                 "meal_risk": round_or_none(to_float(row.get("meal_response_risk_score_mean")), 1),
                 "recovery_risk": round_or_none(to_float(row.get("recovery_risk_score_mean")), 1),
-                "drift_score": round_or_none(to_float(row.get("glycaemic_drift_score")), 1),
                 "transition_risk": round_or_none(to_float(row.get("state_transition_risk")), 1),
                 "next_day_risk": round_or_none(to_float(row.get("next_day_instability_risk")), 1),
                 "time_above_140_pct": round_or_none(to_float(row.get("time_above_140_pct")), 1),
@@ -290,7 +277,6 @@ def build_cohort_payload(cohort_key: str, cohort_label: str) -> dict[str, Any]:
             "meal_response": meal_validation.get("meal_response_risk_score", {}),
             "recovery": meal_validation.get("recovery_risk_score", {}),
             "next_day": stability_validation.get("next_day_instability_risk", {}),
-            "drift": stability_validation.get("glycaemic_drift_score", {}),
         },
         "subjects": subjects,
         "subject_details": subject_details,
@@ -306,9 +292,7 @@ def build_payload() -> dict[str, Any]:
         "meal_response": "Meal Risk",
         "recovery": "Recovery Risk",
         "next_day": "Next-Day Risk",
-        "drift": "Drift Score",
         "transition": "Transition Risk",
-        "dii": "Instability Index",
     }
     for cohort in cohorts:
         comparison.append(
@@ -323,7 +307,6 @@ def build_payload() -> dict[str, Any]:
                 "meal_auc": cohort["validations"]["meal_response"].get("auc"),
                 "recovery_auc": cohort["validations"]["recovery"].get("auc"),
                 "next_day_auc": cohort["validations"]["next_day"].get("auc"),
-                "drift_auc": cohort["validations"]["drift"].get("auc"),
             }
         )
 

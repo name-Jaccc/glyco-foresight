@@ -81,8 +81,6 @@
       const mealRisk = domainData.find(d => d.key === "meal_response")?.[item.key];
       const recoveryRisk = domainData.find(d => d.key === "recovery")?.[item.key];
       const nextDayRisk = domainData.find(d => d.key === "next_day")?.[item.key];
-      const driftScore = domainData.find(d => d.key === "drift")?.[item.key];
-
       return `
       <article class="comparison-card">
         <h3>${item.label}</h3>
@@ -91,7 +89,6 @@
           ${miniBar("Meal Response Risk", mealRisk, 100)}
           ${miniBar("Recovery Risk Score", recoveryRisk, 100)}
           ${miniBar("Next-Day Instability Risk", nextDayRisk, 100)}
-          ${miniBar("Glycaemic Drift Score", driftScore, 100)}
         </div>
       </article>
     `;
@@ -150,9 +147,7 @@
       cohort.framework.meal_response,
       cohort.framework.recovery,
       cohort.framework.next_day,
-      cohort.framework.drift,
       cohort.framework.transition,
-      cohort.framework.dii,
     ];
     el.frameworkGrid.innerHTML = frameworkEntries.map((entry) => `
       <article class="framework-card">
@@ -171,7 +166,6 @@
       ["Meal Response Risk Score", cohort.validations.meal_response],
       ["Recovery Risk Score", cohort.validations.recovery],
       ["Next-Day Instability Risk", cohort.validations.next_day],
-      ["Glycaemic Drift Score", cohort.validations.drift],
     ];
     el.validationGrid.innerHTML = validationEntries.map(([title, item]) => `
       <article class="validation-card">
@@ -339,7 +333,6 @@
     const padY = 18;
     const series = [
       { key: "meal_risk", color: "#d46f4d", label: "Meal Response Risk" },
-      { key: "drift_score", color: "#c4952d", label: "Glycaemic Drift" },
       { key: "next_day_risk", color: "#8f3f26", label: "Next-Day Instability" },
       { key: "transition_risk", color: "#2c7a78", label: "State Transition" },
     ];
@@ -437,7 +430,7 @@
         </div>
         <div class="alert-meta">
           Day ${item.day}<br>
-          DII ${format.number(item.daily_instability_index, 1)} · CV ${format.number(item.daily_glucose_cv, 3)}<br>
+          CV ${format.number(item.daily_glucose_cv, 3)}<br>
           TAR&gt;140 ${format.percent(item.time_above_140_pct, 1)} · Excursion freq ${format.number(item.excursion_frequency, 2)}
         </div>
       </article>
