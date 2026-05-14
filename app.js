@@ -192,6 +192,14 @@
   function renderScoreMap() {
     const selected = getSelectedCohort();
     const maxValue = 100;
+    const scoreFormulas = {
+      meal_response: "raw = 0.35·z(peak_glucose) + 0.35·z(peak_delta) + 0.30·z(log1p(iAUC<sub>120</sub>))",
+      recovery: "raw = 0.40·z(min&gt;7.8) + 0.35·z(log1p(TTR)) + 0.25·z(log1p(dur&gt;baseline))",
+      next_day: "raw = ridge(daily_features); β = (X'X + αI)<sup>−1</sup>X'(y − ȳ), α=1.0",
+      transition: "raw = 0.30·z(CV) + 0.30·z(TAR&gt;140) + 0.20·z(excursion_freq) + 0.20·z(change_pt)",
+    };
+    const sigmoidNote = "score = 100 / (1 + exp(−raw))";
+
     el.scoreMapChart.innerHTML = data.comparison_domains.map((row) => `
       <div class="score-row">
         <div class="score-row-label">${row.label}</div>
@@ -211,6 +219,7 @@
             `;
           }).join("")}
         </div>
+        ${scoreFormulas[row.key] ? `<div class="score-row-formula">${scoreFormulas[row.key]}<br><span class="sigmoid-note">${sigmoidNote}</span></div>` : ""}
       </div>
     `).join("");
   }

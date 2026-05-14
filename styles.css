@@ -157,6 +157,24 @@ h2 {
   align-items: start;
 }
 
+.score-row-formula {
+  grid-column: 1 / -1;
+  margin-top: 6px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(31, 39, 55, 0.04);
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-family: "SF Mono", "Menlo", "Consolas", monospace;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+.sigmoid-note {
+  font-style: italic;
+  opacity: 0.75;
+}
+
 .score-row-label,
 .delta-label {
   font-weight: 700;
